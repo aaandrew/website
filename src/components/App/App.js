@@ -9,16 +9,24 @@
 'use strict';
 
 import './App.less';
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import invariant from 'react/lib/invariant';
 import AppActions from '../../actions/AppActions';
 import AppStore from '../../stores/AppStore';
 import Navbar from '../Navbar';
 import ContentPage from '../ContentPage';
 import NotFoundPage from '../NotFoundPage';
+import setViewport from './setViewport';
 
-export default class App extends React.Component {
+class App {
+
+  static propTypes = {
+    path: PropTypes.string.isRequired,
+    viewport: PropTypes.object.isRequired,
+    onSetTitle: PropTypes.func.isRequired,
+    onSetMeta: PropTypes.func.isRequired,
+    onPageNotFound: PropTypes.func.isRequired
+  }
 
   componentDidMount() {
     window.addEventListener('popstate', this.handlePopState);
@@ -31,7 +39,8 @@ export default class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.path !== nextProps.path;
+    return this.props.path !== nextProps.path ||
+           this.props.viewport !== nextProps.viewport;
   }
 
   render() {
@@ -66,6 +75,7 @@ export default class App extends React.Component {
               <span>© Your Company</span>
               <span><a href="/">Home</a></span>
               <span><a href="/privacy">Privacy</a></span>
+              <span>{'Viewport: ' + this.props.viewport.width + 'x' + this.props.viewport.height}</span>
             </p>
           </div>
         </div>
@@ -132,9 +142,4 @@ export default class App extends React.Component {
 
 }
 
-App.propTypes = {
-  path: React.PropTypes.string.isRequired,
-  onSetTitle: React.PropTypes.func.isRequired,
-  onSetMeta: React.PropTypes.func.isRequired,
-  onPageNotFound: React.PropTypes.func.isRequired
-};
+export default setViewport(App);

@@ -9,10 +9,17 @@
 'use strict';
 
 import './TextBox.less';
+import React, { PropTypes } from 'react';
 
-import React from 'react';
+class TextBox {
 
-export default class TextBox extends React.Component {
+  static propTypes = {
+    maxLines: PropTypes.number
+  }
+
+  static defaultProps = {
+    maxLines: 1
+  }
 
   render() {
     return (
@@ -26,10 +33,4 @@ export default class TextBox extends React.Component {
 
 }
 
-TextBox.propTypes = {
-  maxLines: React.PropTypes.number
-};
-
-TextBox.defaultProps = {
-  maxLines: 1
-};
+export default TextBox;
