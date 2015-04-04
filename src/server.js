@@ -18,8 +18,6 @@ import ActionTypes from './constants/ActionTypes';
 import AppStore from './stores/AppStore';
 
 var server = express();
-var http = require('http').Server(server);
-var io = require('socket.io')(http);
 
 server.set('port', (process.env.PORT || 5000));
 server.use(express.static(path.join(__dirname)));
