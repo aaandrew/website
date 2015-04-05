@@ -16,6 +16,7 @@ import React from 'react';
 import Dispatcher from './core/Dispatcher';
 import ActionTypes from './constants/ActionTypes';
 import AppStore from './stores/AppStore';
+import socketio from 'socket.io';
 
 var server = express();
 
